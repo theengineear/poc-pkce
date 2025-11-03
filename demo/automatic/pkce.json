@@ -1,0 +1,5 @@
+{
+  "issuer": "dev-c6d0wummlck4y50j.us.auth0.com",
+  "clientId": "Kvl9KjlEK6rWxRyrUf1npDpxYURvS9vS",
+  "scopes": ["openid", "profile", "email", "offline_access"]
+}

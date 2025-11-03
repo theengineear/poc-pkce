@@ -1,0 +1,26 @@
+{
+  "name": "poc-pkce",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Minimal PKCE demonstration with Google OAuth - static client-side auth",
+  "scripts": {
+    "start": "node server.js",
+    "types": "tsc",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "pkce",
+    "oauth",
+    "google",
+    "spa",
+    "authentication"
+  ],
+  "author": "Andrew Seier",
+  "devDependencies": {
+    "@eslint/js": "9.39.0",
+    "eslint": "9.39.0",
+    "typescript": "5.9.3"
+  }
+}

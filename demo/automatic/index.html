@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected Page - PKCE Demo</title>
+    <!-- CSP: everything from our origin, except OAuth API calls to Auth0 -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self'
+          'sha256-ibkBnvgNpPiFPKe9zcnY6wSzFiOJ/B6q31X71PESJJ0=';
+        connect-src 'self'
+          https://dev-c6d0wummlck4y50j.us.auth0.com;
+      ">
+    <link rel="stylesheet" href="../index.css" blocking="render">
+    <!-- Authentication guard - auto-configures from pkce.json and enforces auth -->
+    <!-- Uses OIDC Discovery to automatically fetch OAuth endpoints -->
+    <script type="module" src="../../pkce.js" blocking="render"></script>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Protected Page</h1>
+
+      <div class="profile">
+        <p><strong>User:</strong> <span id="user-name">Loading...</span></p>
+        <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+      </div>
+
+      <button id="logout-button">Logout</button>
+
+      <div class="tech-note">
+        <strong>How this works:</strong>
+        <ul>
+          <li>This page includes <code>pkce.js</code> in the HEAD with <code>blocking="render"</code></li>
+          <li>The module auto-fetches <code>pkce.json</code> from document root</li>
+          <li>Top-level await blocks rendering until auth check completes</li>
+          <li>If not authenticated, you're redirected to login</li>
+          <li>If authenticated, the page loads normally</li>
+        </ul>
+        <p>
+          <a href="../">Home</a> •
+          <a href="../programmatic/">Programmatic</a> •
+          <a href="../unauthenticated/">Unauthenticated</a>
+        </p>
+      </div>
+    </main>
+
+    <script type="module">
+      import PKCE from '../../pkce.js';
+
+      // Fetch and display user info
+      const accessToken = PKCE.getAccessToken();
+      const response = await fetch('https://dev-c6d0wummlck4y50j.us.auth0.com/userinfo', {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+      });
+
+      if (response.ok) {
+        const userInfo = await response.json();
+        const firstName = userInfo.name ? userInfo.name.split(' ')[0] : 'Unknown';
+        document.getElementById('user-name').textContent = firstName;
+        document.getElementById('user-email').textContent = userInfo.email || 'N/A';
+      } else {
+        document.getElementById('user-name').textContent = 'Error loading';
+        document.getElementById('user-email').textContent = 'Error loading';
+      }
+
+      // Attach logout handler
+      document.getElementById('logout-button').addEventListener('click', () => PKCE.logout());
+    </script>
+  </body>
+</html>

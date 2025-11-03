@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic Configuration - PKCE Demo</title>
+    <!-- CSP: everything from our origin, except OAuth API calls to Auth0 -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        connect-src 'self'
+          https://dev-c6d0wummlck4y50j.us.auth0.com;
+      ">
+    <link rel="stylesheet" href="../index.css" blocking="render">
+  </head>
+  <body>
+    <main class="container">
+      <div id="login-view" hidden>
+        <h1>Programmatic Configuration</h1>
+        <button id="login-button">Sign in with Auth0</button>
+
+        <div class="tech-note">
+          <strong>How this works:</strong>
+          <ul>
+            <li>No <code>pkce.json</code> file - manual configuration via JavaScript</li>
+            <li><code>PKCE.configure()</code> called in application code</li>
+            <li><code>PKCE.initialize()</code> checks auth state</li>
+            <li>Application manually shows login/profile views</li>
+          </ul>
+          <p>
+            <a href="../">Home</a> •
+            <a href="../automatic/">Automatic</a> •
+            <a href="../unauthenticated/">Unauthenticated</a>
+          </p>
+        </div>
+      </div>
+
+      <div id="profile-view" hidden>
+        <h1>Hi <span id="user-name"></span>!</h1>
+
+        <button id="logout-button">Logout</button>
+
+        <div class="tech-note">
+          <strong>Security notes:</strong>
+          <ul>
+            <li>Access token in-memory only (cleared on refresh)</li>
+            <li>Refresh token in localStorage (session persistence)</li>
+            <li>PKCE prevents code interception attacks</li>
+            <li>Proactive token refresh (5 min before expiry)</li>
+            <li>Multi-tab synchronization via storage events</li>
+          </ul>
+          <p>
+            <a href="../">Home</a> •
+            <a href="../automatic/">Automatic</a> •
+            <a href="../unauthenticated/">Unauthenticated</a>
+          </p>
+        </div>
+      </div>
+
+      <div id="loading-view" hidden>
+        <h1 class="loading">Authenticating…</h1>
+        <p class="intro">Exchanging authorization code for token</p>
+      </div>
+    </main>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

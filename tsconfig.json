@@ -1,0 +1,72 @@
+{
+  "compilerOptions": {
+    ////////////////////////////////////////////////////////////////////////////
+    // Language & Target Environment ///////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+    // Target modern JavaScript without transpilation
+    "target": "ESNEXT",
+
+    // Runtime environment libraries for type checking
+    // DOM/DOM.Iterable for browser code, we'll use separate config for server.js
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+
+    // Type checking environments
+    "types": [],
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Module System (No Bundler) //////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+    // Use native ES modules (import/export) without transformation
+    "module": "NodeNext",
+
+    // Module resolution strategy for Node.js-style ESM
+    "moduleResolution": "NodeNext",
+
+    "verbatimModuleSyntax": true,
+
+    ////////////////////////////////////////////////////////////////////////////
+    // JSDoc Type Checking /////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+    // Enable JavaScript files in the compilation
+    "allowJs": true,
+
+    // Actually type-check JavaScript files using JSDoc annotations
+    "checkJs": true,
+
+    // Emit .d.ts files for library consumers
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "./dist",
+
+    ////////////////////////////////////////////////////////////////////////////
+    // Type Checking Rigor ////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+
+    // Enable all strict type checking options
+    "strict": true,
+
+    // Skip type checking of .d.ts files in node_modules
+    "skipLibCheck": true,
+
+    // Enforce consistent file name casing across imports
+    "forceConsistentCasingInFileNames": true
+  },
+
+  ////////////////////////////////////////////////////////////////////////////
+  // File Selection //////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////
+
+  // Type check library file and demo source files
+  // Exclude server.js since it's Node.js code (different environment)
+  "include": [
+    "pkce.js",
+    "demo/**/*.js"
+  ],
+  "exclude": [
+    "server.js",
+    "node_modules"
+  ]
+}

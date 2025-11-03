@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Page - PKCE Demo</title>
+    <!-- CSP: everything from our origin -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self';">
+    <link rel="stylesheet" href="../index.css" blocking="render">
+    <!-- No auth.js - this page is publicly accessible -->
+  </head>
+  <body>
+    <main class="container">
+      <h1>Public Page</h1>
+
+      <div class="tech-note">
+        <strong>How this works:</strong>
+        <ul>
+          <li>This page does NOT include <code>pkce.js</code></li>
+          <li>No <code>pkce.json</code> means no authentication required</li>
+          <li>Anyone can view this page</li>
+        </ul>
+        <p>
+          <a href="../">Home</a> •
+          <a href="../automatic/">Automatic</a> •
+          <a href="../programmatic/">Programmatic</a>
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
